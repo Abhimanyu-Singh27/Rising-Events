@@ -352,7 +352,7 @@ function Footer(){
 function App(){
   const wa = business.whatsapp.replace(/\D/g,'') || '918824949675'
   return <><Header/><Hero/><About/><Services/><Gallery/><Featured/><Testimonials/><WhyChoose/><Contact/><Footer/>
-    <a className="whatsapp" href={`https://wa.me/${wa}?text=Hello%20Rising%20Events,%20I%20want%20event%20decoration%20details`} target="_blank" rel="noreferrer"><FaWhatsapp size={28} /></a>
+    <a className="whatsapp" href={`https://wa.me/${wa}?text=Hello%20Rising%20Events,%20I%20want%20event%20decoration%20details`} target="_blank" rel="noreferrer"><FaWhatsapp size={27} /></a>
     <a
   className="instagram"
   href="https://www.instagram.com/abhii_manyu__"
