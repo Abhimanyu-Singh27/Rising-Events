@@ -23,6 +23,9 @@ function readFeedback() {
 function saveFeedback(feedbacks) {
   fs.writeFileSync(feedbackFile, JSON.stringify(feedbacks, null, 2))
 }
+app.get("/", (req, res) => {
+  res.send("Rising Events backend is running")
+})
 
 app.get('/api/feedback', (req, res) => {
   res.json(readFeedback())
