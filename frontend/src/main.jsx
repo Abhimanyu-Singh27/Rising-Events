@@ -1,3 +1,4 @@
+import emailjs from '@emailjs/browser'
 import { FaWhatsapp, FaInstagram } from "react-icons/fa6";
 import React from 'react'
 import { createRoot } from 'react-dom/client'
@@ -16,6 +17,9 @@ import img9 from './assets/gallery/sample-9.png'
 import img10 from './assets/gallery/sample-10.png'
 
 
+const EMAILJS_SERVICE_ID = 'service_u1zgucd' 
+const EMAILJS_TEMPLATE_ID = 'template_6fyv819' 
+const EMAILJS_PUBLIC_KEY = '8OwvOF5n0zanpIAis' 
 const photos = Object.values(
   import.meta.glob('./assets/gallery/*.{png,jpg,jpeg,webp,JPG,JPEG,PNG,WEBP,HEIC}', {
     eager: true,
@@ -291,7 +295,33 @@ function WhyChoose(){
 
 function Contact(){
   const [status,setStatus]=React.useState('')
- async function submit(e) {
+//  async function submit(e) {
+//   e.preventDefault()
+//   setStatus('Sending...')
+
+//   const form = e.currentTarget
+//   const data = Object.fromEntries(new FormData(form).entries())
+
+//   try {
+//     const res = await fetch('https://rising-events.onrender.com/api/contact', {
+//       method: 'POST',
+//       headers: { 'Content-Type': 'application/json' },
+//       body: JSON.stringify(data)
+//     })
+
+//     const result = await res.json()
+
+//     if (res.ok && result.ok === true) {
+//       setStatus('Thank you! Your enquiry has been sent successfully.')
+//       form.reset()
+//     } else {
+//       setStatus('Sorry, enquiry was not sent. Please contact us on WhatsApp.')
+//     }
+//   } catch (err) {
+//     setStatus('Sorry, enquiry was not sent. Please contact us on WhatsApp.')
+//   }
+// }
+async function submit(e) {
   e.preventDefault()
   setStatus('Sending...')
 
@@ -299,21 +329,23 @@ function Contact(){
   const data = Object.fromEntries(new FormData(form).entries())
 
   try {
-    const res = await fetch('https://rising-events.onrender.com/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    })
+    await emailjs.send(
+      EMAILJS_SERVICE_ID,
+      EMAILJS_TEMPLATE_ID,
+      {
+        name: data.name,
+        phone: data.phone,
+        event_type: data.eventType,
+        event_date: data.eventDate,
+        message: data.message
+      },
+      EMAILJS_PUBLIC_KEY
+    )
 
-    const result = await res.json()
-
-    if (res.ok && result.ok === true) {
-      setStatus('Thank you! Your enquiry has been sent successfully.')
-      form.reset()
-    } else {
-      setStatus('Sorry, enquiry was not sent. Please contact us on WhatsApp.')
-    }
+    setStatus('Thank you! Your enquiry has been sent successfully.')
+    form.reset()
   } catch (err) {
+    console.error(err)
     setStatus('Sorry, enquiry was not sent. Please contact us on WhatsApp.')
   }
 }
