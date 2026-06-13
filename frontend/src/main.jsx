@@ -204,7 +204,7 @@ const [feedbackStatus, setFeedbackStatus] = React.useState('')
 const visibleReviews = showAllReviews ? reviews : reviews.slice(0, 3)
 
   React.useEffect(() => {
-    fetch('http://localhost:5000/api/feedback')
+    fetch('https://rising-events.onrender.com/api/feedback')
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data) && data.length > 0) {
@@ -222,7 +222,7 @@ const visibleReviews = showAllReviews ? reviews : reviews.slice(0, 3)
     const data = Object.fromEntries(new FormData(form).entries())
 
     try {
-      const res = await fetch('http://localhost:5000/api/feedback', {
+      const res = await fetch('https://rising-events.onrender.com/api/feedback', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -299,7 +299,7 @@ function Contact(){
   const data = Object.fromEntries(new FormData(form).entries())
 
   try {
-    const res = await fetch('http://localhost:5000/api/contact', {
+    const res = await fetch('https://rising-events.onrender.com/api/contact', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
