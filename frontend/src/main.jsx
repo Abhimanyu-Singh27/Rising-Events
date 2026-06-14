@@ -2,10 +2,11 @@ import emailjs from '@emailjs/browser'
 import { FaWhatsapp, FaInstagram } from "react-icons/fa6";
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import { Phone, Mail, MapPin, Instagram, MessageCircle, Send, Sparkles, Clock, Gem, Palette, PartyPopper, ChevronUp } from 'lucide-react'
+import { User,Phone, Mail, MapPin, Instagram, MessageCircle, Send, Sparkles, Clock, Gem, Palette, PartyPopper, ChevronUp } from 'lucide-react'
 import './styles.css'
 import bgImage from "./assets/bg_gallery/sample-1.png";
-
+import logo from './assets/logo.png'
+import logo_img from './assets/logo_img.png'
 import img2 from './assets/gallery/sample-2.png'
 import img3 from './assets/gallery/sample-3.png'
 import img4 from './assets/gallery/sample-4.png'
@@ -56,7 +57,9 @@ function Header(){
   return <header className="header">
     <div className="logo_div">
     <a className="brand" href="#home">
-      <div><span className="logo">R</span></div>
+      <div><span className="logo">
+        <img src={logo} alt="Rising Events Logo" className="header-logo" />
+        </span></div>
       <span>{business.name}</span>
     </a>
       <span className="logo_signature">Crafting Moments, Creating Memories</span>
@@ -65,7 +68,7 @@ function Header(){
       ☰
     </button>
 
-    <nav className={open ? "navMenu open" : "navMenu"}>
+    <nav id="navbar" className={open ? "navMenu open" : "navMenu"}>
       {['Home','About','Services','Gallery','Featured','Contact'].map(x => 
         <a key={x} href={'#'+x.toLowerCase()} onClick={() => setOpen(false)}>
           {x}
@@ -295,32 +298,7 @@ function WhyChoose(){
 
 function Contact(){
   const [status,setStatus]=React.useState('')
-//  async function submit(e) {
-//   e.preventDefault()
-//   setStatus('Sending...')
 
-//   const form = e.currentTarget
-//   const data = Object.fromEntries(new FormData(form).entries())
-
-//   try {
-//     const res = await fetch('https://rising-events.onrender.com/api/contact', {
-//       method: 'POST',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify(data)
-//     })
-
-//     const result = await res.json()
-
-//     if (res.ok && result.ok === true) {
-//       setStatus('Thank you! Your enquiry has been sent successfully.')
-//       form.reset()
-//     } else {
-//       setStatus('Sorry, enquiry was not sent. Please contact us on WhatsApp.')
-//     }
-//   } catch (err) {
-//     setStatus('Sorry, enquiry was not sent. Please contact us on WhatsApp.')
-//   }
-// }
 async function submit(e) {
   e.preventDefault()
   setStatus('Sending...')
@@ -354,6 +332,7 @@ async function submit(e) {
     <p>Tell us about your event. We will respond with a tailored proposal.</p>
     <div className="contactGrid">
       <div className="contactInfo">
+        <p><User/> <span><small>Founder</small>Abhimanyu Singh</span></p>
         <p><Phone/> <span><small>Phone</small>{business.phone}</span></p>
         <p><Mail/> <span><small>Email</small>{business.email}</span></p>
         <p><MapPin/> <span><small>Studio</small>{business.address}</span></p>
@@ -361,7 +340,7 @@ async function submit(e) {
       </div>
       <form onSubmit={submit} className="form">
         <input name="name" placeholder="Your full name" required />
-        <input name="phone" placeholder="Mobile Number" required />
+        <input name="phone" placeholder="WhatsApp Number" required />
         <select name="eventType" required><option value="">Select event type</option>{services.map(s=><option key={s[0]}>{s[0]}</option>)}</select>
         <input name="eventDate" type="date" />
         <textarea name="message" placeholder="Tell us about venue, theme, guest count and budget..." required></textarea>
@@ -372,15 +351,44 @@ async function submit(e) {
   </section>
 }
 
-function Footer(){
-  return <footer className="footer">
-    <div><a className="brand"><span className="logo">R</span><div className ="footer-business-name"><span>{business.name}</span></div></a><p>A luxury event decoration studio crafting unforgettable celebrations.</p></div>
-    <div><h4>Navigate</h4><a href="#home">Home</a><a href="#about">About</a><a href="#services">Services</a><a href="#gallery">Gallery</a><a href="#contact">Contact</a></div>
-    <div><h4>Services</h4>{services.slice(0,6).map(s=><a href="#services" key={s[0]}>{s[0]}</a>)}</div>
-    <p className="copy">© 2026 {business.name}. All rights reserved.</p>
-  </footer>
-}
 
+function Footer() {
+  return (
+    <footer className="footer">
+      <div className="footerclass">
+
+        <div className="footer-brand">
+          <img src={logo_img} alt="Rising Events Logo" className="footer-logo" />
+          <h3>{business.name}</h3>
+          <p>A luxury event decoration studio crafting unforgettable celebrations.
+            <p className="footer-text">We Plan, You Celebrate</p>
+          </p>
+        </div>
+
+        <div className="footer-nav-class">
+          <div>
+            <h4>Navigate</h4>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#contact">Contact</a>
+          </div>
+
+          <div>
+            <h4>Services</h4>
+            {services.slice(0, 6).map((s) => (
+              <a href="#services" key={s[0]}>{s[0]}</a>
+            ))}
+          </div>
+        </div>
+
+      </div>
+
+      <p className="copy">© 2026 {business.name}. All rights reserved.</p>
+    </footer>
+  );
+}
 function App(){
   const wa = business.whatsapp.replace(/\D/g,'') || '918824949675'
   React.useEffect(() => {
