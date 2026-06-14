@@ -361,7 +361,7 @@ function Footer() {
           <img src={logo_img} alt="Rising Events Logo" className="footer-logo" />
           <h3>{business.name}</h3>
           <p>A luxury event decoration studio crafting unforgettable celebrations.
-            <p className="footer-text">We Plan, You Celebrate</p>
+            <p className="footer-text">We Plan | You Celebrate</p>
           </p>
         </div>
 
